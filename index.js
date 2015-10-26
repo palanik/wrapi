@@ -1,6 +1,7 @@
+'use strict';
+
 var request = require('request');
 var pattern = require('urlpattern').express;
-
 
 function wrapi(baseURL, endpoints, opts) {
   opts = opts || {};
@@ -87,7 +88,6 @@ function wrapi(baseURL, endpoints, opts) {
   }
 
 }
-
 
 module.exports = wrapi;
 module.exports.version = '1.0.0';
