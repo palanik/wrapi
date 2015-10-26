@@ -1,0 +1,96 @@
+{
+	"zen" : {
+		"method" : "GET",
+		"path": "zen"
+	},
+
+	"users" : {
+		"method" : "GET",
+		"path" : "users"
+	},
+
+	"user" : {
+		"method" : "GET",
+		"path" : "users/:username"
+	},
+
+	"followers": {
+		"method" : "GET",
+		"path" : "users/:username/followers"
+	},
+
+	"following": {
+		"method" : "GET",
+		"path" : "users/:username/following"
+	},
+
+	"isFollowing": {
+		"method" : "GET",
+		"path" : "users/:username/following/:target_user"
+	},
+
+	"keys": {
+		"method" : "GET",
+		"path" : "users/:username/keys"
+	},
+
+	"organizations" : {
+		"method" : "GET",
+		"path" : "organizations"
+	},
+
+	"organization" : {
+		"method" : "GET",
+		"path" : "orgs/:org"
+	},
+
+	"userRepos": {
+		"method" : "GET",
+		"path" : "users/:username/repos"
+	},
+
+	"orgRepos": {
+		"method" : "GET",
+		"path" : "orgs/:orgname/repos"
+	},
+
+	"repositories": {
+		"method" : "GET",
+		"path" : "repositories"
+	},
+
+	"repo": {
+		"method" : "GET",
+		"path" : "repos/:owner/:repo"
+	},
+
+	"contributors": {
+		"method" : "GET",
+		"path" : "repos/:owner/:repo/contributors"
+	},
+
+	"languages": {
+		"method" : "GET",
+		"path" : "repos/:owner/:repo/languages"
+	},
+
+	"teams": {
+		"method" : "GET",
+		"path" : "repos/:owner/:repo/teams"
+	},
+
+	"tags": {
+		"method" : "GET",
+		"path" : "repos/:owner/:repo/tags"
+	},
+
+	"branches": {
+		"method" : "GET",
+		"path" : "repos/:owner/:repo/branches"
+	},
+
+	"branch": {
+		"method" : "GET",
+		"path" : "repos/:owner/:repo/branches/:branch"
+	}
+}
