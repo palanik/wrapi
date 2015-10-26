@@ -44,6 +44,36 @@
 		"path" : "orgs/:org"
 	},
 
+	"members" : {
+		"method" : "GET",
+		"path" : "orgs/:org/members"
+	},
+
+	"isMember" : {
+		"method" : "GET",
+		"path" : "orgs/:org/members/:username"
+	},
+
+	"memberships" : {
+		"method" : "GET",
+		"path" : "user/memberships/orgs/:org"
+	},
+
+	"teams" : {
+		"method" : "GET",
+		"path" : "orgs/:org/teams"
+	},
+
+	"team" : {
+		"method" : "GET",
+		"path" : "teams/:id"
+	},
+
+	"teamMemberships" : {
+		"method" : "GET",
+		"path" : "teams/:id/memberships/:username"
+	},
+
 	"userRepos": {
 		"method" : "GET",
 		"path" : "users/:username/repos"
@@ -52,6 +82,11 @@
 	"orgRepos": {
 		"method" : "GET",
 		"path" : "orgs/:orgname/repos"
+	},
+
+	"teamRepos": {
+		"method" : "GET",
+		"path" : "teams/:id/repos"
 	},
 
 	"repositories": {
