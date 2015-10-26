@@ -1,11 +1,9 @@
 {
   "name": "wrapi",
-  "version": "1.0.0",
-  "description": "Restful API Wrapper",
+  "version": "0.0.1",
+  "description": "Wrapper for calling Restful API",
+  "homepage": "https://github.com/palanik",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "Restful",
     "API",
@@ -14,10 +12,23 @@
     "api",
     "function"
   ],
-  "author": "palanik",
+  "author": "N. Palani Kumanan",
+  "contributors": [
+    "N. Palani Kumanan"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/palanik/wrapi.git"
+  },
   "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "dependencies": {
     "request": "2.65.0",
     "urlpattern": "0.1.0"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
   }
 }
