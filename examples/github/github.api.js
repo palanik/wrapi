@@ -5,7 +5,7 @@ var wrapi = require('../../index.js');
 
 var opts = {
   headers: {
-    'User-Agent': 'wrapi-client'
+    'User-Agent': 'wrapi-github-client'
   }
 };
 

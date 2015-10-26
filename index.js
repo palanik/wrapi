@@ -29,6 +29,13 @@ function wrapi(baseURL, endpoints, opts) {
       opts.body = content;
     }
 
+    if (!opts.headers) {
+      opts.headers = {};
+    }
+    if (!opts.headers['User-Agent']) {
+      opts.headers['User-Agent'] = 'wrapi-client';
+    }
+
     request[method.toLowerCase()](url,
             opts,
             function(e, r, body) {
