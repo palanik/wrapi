@@ -1,0 +1,23 @@
+{
+  "name": "wrapi",
+  "version": "1.0.0",
+  "description": "Restful API Wrapper",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Restful",
+    "API",
+    "wrapper",
+    "functions",
+    "api",
+    "function"
+  ],
+  "author": "palanik",
+  "license": "MIT",
+  "dependencies": {
+    "request": "2.65.0",
+    "urlpattern": "0.1.0"
+  }
+}

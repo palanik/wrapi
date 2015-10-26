@@ -1,0 +1,12 @@
+.git*
+.npmignore
+.gitignore
+.eslintrc
+docs/
+examples/
+node_modules/
+test/
+bin/
+.DS_Store
+Makefile
+.travis.yml
