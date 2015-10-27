@@ -8,6 +8,10 @@ function wrapi(baseURL, endpoints, opts) {
   if (!opts.qs) {
     opts.qs = {};
   }
+
+  endpoints = endpoints || {};
+
+  this.register = defineEndpoint;
   
   // utility method to override params
   function override(o1, o2) {

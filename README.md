@@ -12,9 +12,21 @@ $ npm install wrapi
 
 ## Easy Start
 
+### Approach `A`.
 1. Create a [JSON file](#json-file) listing all the endpoints of the API you want to work with.
 2. [Wrap](#wrap-endpoints) endpoints with **`wrapi`**.
 3. Call individual endpoints as [functions](#make-the-call).
+
+See [Sample Code](examples/github/sample1.js)
+
+### Approach `B`.
+1. Create [client object](#client-object) with API Base URL.
+2. [Register](#register) API endpoints.
+3. Call individual endpoints as [functions](#make-the-call).
+
+See [Sample Code](examples/github/sample2.js)
+
+------
 
 ### JSON File
 Declare each endpoint as per the following specifications.
@@ -71,6 +83,18 @@ var client = new wrapi('https://api.github.com/',	// base url for the API
 // client object contains functions to call the API
 ```
 
+### Register
+Register additional API endpoints with the client object with a function name.
+
+```js
+client.register('zen', 
+  {
+    method : 'GET',
+    path: 'zen'
+  }
+);
+```
+
 ### Make the call
 Call the functions with arguments and a callback.
 
@@ -81,6 +105,13 @@ client.contributors('nodejs', 'node', function(err, contributors) {
   	console.log(contributors);
   }
 }
+
+client.zen(function(err, response) {
+  if (!err) {
+    console.log('Chris says "' + response + '"');
+  }
+});
+
 ```
 
 ## API
@@ -94,8 +125,18 @@ The **`wrapi`** object conventionally provides the client interface to the API. 
 The constructor takes the following arguments:
 
 1. `baseURL` - The base url for the API. eg. `https://api.github.com/repos/nodejs/node/contributors`
-2. `endpoints` - The JSON object listing the endpoints of the API.
+2. `endpoints` - The JSON object listing the endpoints of the API. Provide `{}` - empty object or partial list and `register` endpoints later.
 3. `options` - Optional parameter. **`wrapi`** uses [request](https://www.npmjs.com/package/request) module to connect to API server. The `options` parameter is the same [`options`](https://www.npmjs.com/package/request#requestoptions-callback) parameter used in `request`.
+
+### Register function
+
+Add endpoints to client object.
+```
+register(function_name, endpoint_definition)
+```
+
+1. `function_name` - Alias for the endpoint, also the function name to call.
+2. `endpoint_definition` - JSON object defining the endpoint.
 
 
 ### Function calls
@@ -106,6 +147,10 @@ Call the API via the function in the client object.  Arguments to the function d
 2. `querystring` as an object with name-value pairs. eg. `client.repositories({since:364}  // querystring ?since=364`
 3. `body` - JSON content for  `POST` or `PUT` methods. Skip this argument if not required. 
 4. `callback(err, data)` - a callback function for the results to be returned. The callback is called when the response is fetched or an error occcured. This callback function gets the results of the response.
+
+## Examples
+
+	In examples folder.
 
 ## License
 
