@@ -4,6 +4,8 @@ Wrap Restful APIs as callable functions.
 
 **`wrapi`** allows you to make calls to HTTP based APIs like ordinary JavaScript functions.
 
+[![NPM version](https://img.shields.io/npm/v/wrapi.svg?style=flat)](https://www.npmjs.org/package/wrapi)
+
 ## Installation
 
 ```sh
@@ -12,14 +14,14 @@ $ npm install wrapi
 
 ## Easy Start
 
-### Approach `A`.
+### Approach `A`
 1. Create a [JSON file](#json-file) listing all the endpoints of the API you want to work with.
 2. [Wrap](#wrap-endpoints) endpoints with **`wrapi`**.
 3. Call individual endpoints as [functions](#make-the-call).
 
 See [Sample Code](examples/github/sample1.js)
 
-### Approach `B`.
+### Approach `B`
 1. Create [client object](#client-object) with API Base URL.
 2. [Register](#register) API endpoints.
 3. Call individual endpoints as [functions](#make-the-call).
