@@ -65,6 +65,9 @@ function wrapi(baseURL, endpoints, opts) {
 
   // 
   function defineEndpoint(e, endPoint) {
+    if (e === 'register') {
+      throw new RangeError('"register" is a reserved function name for wrapi. Please use an alias (eg. "Register", "_register").')
+    }
     // arguments order - param1, param2, ..., querystring?, body?, callback 
     self[e] = function() {
 
