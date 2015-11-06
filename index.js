@@ -26,6 +26,8 @@ function wrapi(baseURL, endpoints, opts) {
   var self = this;
 
   function api(method, path, qs, callback, content) {
+    // request function for "DELETE" is .del - https://github.com/request/request#requestdel
+    method = (method == 'DELETE') ? 'DEL' : method;
     var url = baseURL + path;
 
     opts.qs = override(qs, opts.qs);
