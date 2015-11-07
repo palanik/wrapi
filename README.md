@@ -5,7 +5,7 @@ Wrap Restful APIs as callable functions.
 **`wrapi`** allows you to make calls to HTTP based APIs like ordinary JavaScript functions.
 
 [![NPM version](https://img.shields.io/npm/v/wrapi.svg?style=flat)](https://www.npmjs.org/package/wrapi)
-[![Build Status](https://img.shields.io/travis/palanik/wrapi.svg?style=flat)](https://travis-ci.org/palanik/wrapi.svg)
+[![Build Status](https://img.shields.io/travis/palanik/wrapi.svg?style=flat)](https://travis-ci.org/palanik/wrapi)
 
 ## Installation
 
