@@ -91,11 +91,18 @@ function wrapi(baseURL, endpoints, opts) {
       placeholders.forEach(function(ph) {
         values[ph.name] = [].shift.call(args);
       });
-      var path = pattern.transform(endPoint.path, values);
+      try {
+        var path = pattern.transform(endPoint.path, values);
+      }
+      catch (e) {
+        callback(e);
+        return;
+      }
 
       api(endPoint.method, path, qs, callback, body);      
     };
 
+    return self;
   }
 
   // Create methods for supported endpoints
