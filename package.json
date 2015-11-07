@@ -4,6 +4,9 @@
   "description": "Wrapper for calling Restful API",
   "homepage": "https://github.com/palanik",
   "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test"
+  },
   "keywords": [
     "Restful",
     "API",
@@ -27,6 +30,11 @@
   "dependencies": {
     "request": "2.65.0",
     "urlpattern": "0.1.0"
+  },
+  "devDependencies": {
+    "chai": "*",
+    "mocha": "*",
+    "nock": "*"
   },
   "engines": {
     "node": ">= 0.10.0"
