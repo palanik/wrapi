@@ -6,6 +6,7 @@ Wrap Restful APIs as callable functions.
 
 [![NPM version](https://img.shields.io/npm/v/wrapi.svg?style=flat)](https://www.npmjs.org/package/wrapi)
 [![Build Status](https://img.shields.io/travis/palanik/wrapi.svg?style=flat)](https://travis-ci.org/palanik/wrapi)
+[![Coverage Status](https://coveralls.io/repos/palanik/wrapi/badge.svg?service=github)](https://coveralls.io/github/palanik/wrapi)
 
 ## Installation
 
