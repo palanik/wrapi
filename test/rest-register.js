@@ -65,6 +65,7 @@ describe("Restful register", function() {
   });
 
   afterEach(function() {
+     nock.cleanAll();
   });
 
   describe("REST", function() {

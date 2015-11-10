@@ -57,6 +57,7 @@ describe("Restful JSON", function() {
   });
 
   afterEach(function() {
+     nock.cleanAll();
   });
 
   describe("REST", function() {
@@ -124,7 +125,7 @@ describe("Restful JSON", function() {
       expect (function() {
         this.client.random(3,
           function (err, data, res) {}
-        )
+        );
       }).to.throw ( TypeError );
       done();
     });

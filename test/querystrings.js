@@ -29,6 +29,7 @@ describe("Query Strings", function() {
   });
 
   afterEach(function() {
+     nock.cleanAll();
   });
 
   describe("Author/Title", function() {

@@ -31,6 +31,7 @@ describe("Parameters", function() {
   });
 
   afterEach(function() {
+     nock.cleanAll();
   });
 
   describe("Params", function() {
