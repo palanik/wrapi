@@ -16,9 +16,7 @@ function wrapi(baseURL, endpoints, opts) {
   // utility method to override params
   function override(o1, o2) {
     for (var k in o1) {
-      if (!o2.hasOwnProperty(k)) {
-        o2[k] = o1[k];
-      }
+      o2[k] = o1[k];
     }
     return o2;
   }
