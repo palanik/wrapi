@@ -3,7 +3,7 @@ var nock = require('nock');
 var wrapi = require('../index');
 
 describe("Default options", function() {
-  beforeEach(function() {
+  before(function() {
     nock('http://api.a2zbooks.local/v1')
       .get('/books')
       .reply(200, [
@@ -44,7 +44,7 @@ describe("Default options", function() {
 
   });
 
-  afterEach(function() {
+  after(function() {
      nock.cleanAll();
   });
 

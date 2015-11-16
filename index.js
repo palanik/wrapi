@@ -2,6 +2,7 @@
 
 var request = require('request');
 var pattern = require('urlpattern').express;
+var extend = require('extend');
 
 function wrapi(baseURL, endpoints, opts) {
   opts = opts || {};
@@ -13,14 +14,6 @@ function wrapi(baseURL, endpoints, opts) {
 
   this.register = defineEndpoint;
   
-  // utility method to override params
-  function override(o1, o2) {
-    for (var k in o1) {
-      o2[k] = o1[k];
-    }
-    return o2;
-  }
-
   var self = this;
 
   function api(method, path, qs, callback, content) {
@@ -28,20 +21,21 @@ function wrapi(baseURL, endpoints, opts) {
     method = (method == 'DELETE') ? 'DEL' : method;
     var url = baseURL + path;
 
-    opts.qs = override(qs, opts.qs);
+    var apiOpts = extend(true, {}, opts);
+    apiOpts.qs = extend(apiOpts.qs, qs);
     if (content) {
-      opts.body = content;
+      apiOpts.body = content;
     }
 
-    if (!opts.headers) {
-      opts.headers = {};
+    if (!apiOpts.headers) {
+      apiOpts.headers = {};
     }
-    if (!opts.headers['User-Agent']) {
-      opts.headers['User-Agent'] = 'wrapi-client';
+    if (!apiOpts.headers['User-Agent']) {
+      apiOpts.headers['User-Agent'] = 'wrapi-client';
     }
 
     request[method.toLowerCase()](url,
-            opts,
+            apiOpts,
             function(e, r, body) {
               if (e) {
                 callback(e);

@@ -4,7 +4,7 @@ var wrapi = require('../index');
 
 
 describe("Misc. test cases", function() {
-  beforeEach(function() {
+  before(function() {
     nock('http://api.a2zbooks.local/v1')
 
       .get('/hello')
@@ -50,7 +50,7 @@ describe("Misc. test cases", function() {
     );
   });
 
-  afterEach(function() {
+  after(function() {
      nock.cleanAll();
   });
 
