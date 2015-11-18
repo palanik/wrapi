@@ -3,6 +3,7 @@
 var request = require('request');
 var pattern = require('urlpattern').express;
 var extend = require('extend');
+var url = require('url')
 
 function wrapi(baseURL, endpoints, opts) {
   opts = opts || {};
@@ -19,7 +20,7 @@ function wrapi(baseURL, endpoints, opts) {
   function api(method, path, qs, callback, content) {
     // request function for "DELETE" is .del - https://github.com/request/request#requestdel
     method = (method == 'DELETE') ? 'DEL' : method;
-    var url = baseURL + path;
+    var apiUrl = url.resolve(baseURL, path);
 
     var apiOpts = extend(true, {}, opts);
     apiOpts.qs = extend(apiOpts.qs, qs);
@@ -34,7 +35,7 @@ function wrapi(baseURL, endpoints, opts) {
       apiOpts.headers['User-Agent'] = 'wrapi-client';
     }
 
-    request[method.toLowerCase()](url,
+    request[method.toLowerCase()](apiUrl,
             apiOpts,
             function(e, r, body) {
               if (e) {
