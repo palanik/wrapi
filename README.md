@@ -108,7 +108,7 @@ client.contributors('nodejs', 'node', function(err, contributors) {
   if (!err) {
   	console.log(contributors);
   }
-}
+});
 
 client.zen(function(err, response) {
   if (!err) {
@@ -120,16 +120,16 @@ client.zen(function(err, response) {
 
 ## API
 
-**`wrapi`** is not restricted any one or a set of public APIs. All APIs providing HTTP interface to access the endpoints can be wrapped by **`wrapi`** so that you can quickly build your client application.
+**`wrapi`** is an open ended framework and is not restricted any one or a set of public APIs. All APIs providing HTTP interface to access the endpoints can be wrapped by **`wrapi`** so that you can quickly build your client application.
 
 ### Client object
 
-The **`wrapi`** object conventionally provides the client interface to the API. Create it by calling `new` **`wrapi()`**.
+The **`wrapi`** object conveniently provides the client interface to the API. Create it by calling `new` **`wrapi()`**.
 
 The constructor takes the following arguments:
 
 1. `baseURL` - The base url for the API. eg. `https://api.github.com/repos/nodejs/node/contributors`
-2. `endpoints` - The JSON object listing the endpoints of the API. Provide `{}` - empty object or partial list and `register` endpoints later.
+2. `endpoints` - The JSON object listing the endpoints of the API. Provide `{}` - empty object or a partial list and `register` endpoints later.
 3. `options` - Optional parameter. **`wrapi`** uses [request](https://www.npmjs.com/package/request) module to connect to API server. The `options` parameter is the same [`options`](https://www.npmjs.com/package/request#requestoptions-callback) parameter used in `request`.
 
 ### Register function
