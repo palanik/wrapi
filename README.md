@@ -154,7 +154,7 @@ Call the API via the function in the client object.  Arguments to the function d
 
 ## Examples
 
-	In examples folder.
+  In [examples](examples) folder.
 
 ## License
 
