@@ -1,6 +1,6 @@
 {
   "name": "wrapi",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "Wrapper for calling Restful API",
   "homepage": "https://github.com/palanik",
   "main": "index.js",
@@ -15,7 +15,9 @@
     "wrapper",
     "functions",
     "api",
-    "function"
+    "function",
+    "api wrapper",
+    "api function"
   ],
   "author": "N. Palani Kumanan",
   "contributors": [
