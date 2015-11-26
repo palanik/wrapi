@@ -4,6 +4,7 @@ var request = require('request');
 var pattern = require('urlpattern').express;
 var extend = require('extend');
 var url = require('url');
+var nest = require('./utils').nest;
 
 function wrapi(baseURL, endpoints, opts) {
   opts = opts || {};
@@ -49,7 +50,7 @@ function wrapi(baseURL, endpoints, opts) {
                     body = json;
                   }
                   catch(e) {
-
+                    // Not json
                   }
                 }
                 callback(null, body, r);
@@ -60,11 +61,13 @@ function wrapi(baseURL, endpoints, opts) {
 
   // 
   function defineEndpoint(e, endPoint) {
-    if (e === 'register') {
+    e = e.split('.');
+    if (e[0] === 'register') {
       throw new RangeError('"register" is a reserved function name for wrapi. Please use an alias (eg. "Register", "_register").');
     }
+
     // arguments order - param1, param2, ..., querystring?, body?, callback 
-    self[e] = function() {
+    function apiEndpoint() {
 
       var callback = [].pop.call(arguments);
       var body = null;
@@ -94,6 +97,8 @@ function wrapi(baseURL, endpoints, opts) {
 
       api(endPoint.method, path, qs, callback, body);      
     };
+
+    nest(self, e, apiEndpoint);
 
     return self;
   }
