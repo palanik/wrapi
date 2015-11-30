@@ -10,3 +10,7 @@ bin/
 .DS_Store
 Makefile
 .travis.yml
+coverage/
+.coveralls.yml
+lib/
+*.sh
