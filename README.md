@@ -145,12 +145,15 @@ register(function_name, endpoint_definition)
 
 ### Function calls
 
-Call the API via the function in the client object.  Arguments to the function depends on the API declaration in the JSON. Provide the arguments in the following order:
+Call the API via the function in the client object.  Arguments to the function depend on the API declaration in the JSON. 
 
-1. params in the path of the endpoint. eg. `client.contributors('nodejs', 'node',   // nodejs & node are path params`
+Provide the arguments in the following order:
+
+1. named `params` in the url path of the endpoint. eg. `client.contributors('nodejs', 'node',   // nodejs & node are path params`
 2. `querystring` as an object with name-value pairs. eg. `client.repositories({since:364}  // querystring ?since=364`
-3. `body` - JSON content for  `POST` or `PUT` methods. Skip this argument if not required. 
-4. `callback(err, data)` - a callback function for the results to be returned. The callback is called when the response is fetched or an error occcured. This callback function gets the results of the response.
+3. `body` - JSON content for  `POST` or `PUT` methods. Skip this argument if not required.
+  * To `POST` *multipart/form-data*, set this argument as `{"formData" : formContent }`
+4. `callback(err, data)` - a callback function for the results to be returned. The callback is called when the response is fetched or if there is an error. This callback function gets the results of the response.
 
 ## Examples
 
