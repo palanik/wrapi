@@ -27,6 +27,13 @@ function wrapi(baseURL, endpoints, opts) {
     apiOpts.qs = extend(apiOpts.qs, qs);
     if (content) {
       apiOpts.body = content;
+      if (typeof content == 'object' && Object.keys(content).length == 1) {
+        if (Object.keys(content)[0] == 'formData') {
+          apiOpts.formData = content['formData']; // https://github.com/request/request#forms
+          delete apiOpts.body;
+          apiOpts.json = false;
+        }
+      }
     }
 
     if (!apiOpts.headers) {
