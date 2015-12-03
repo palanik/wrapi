@@ -6,6 +6,8 @@ var extend = require('extend');
 var url = require('url');
 var nest = require('./utils').nest;
 
+var Promise = Promise || require('es6-promise').Promise;
+
 function wrapi(baseURL, endpoints, opts) {
   opts = opts || {};
   if (!opts.qs) {
@@ -77,6 +79,27 @@ function wrapi(baseURL, endpoints, opts) {
     function apiEndpoint() {
 
       var callback = [].pop.call(arguments);
+      // If no callback provided, return a Promise.
+      if (typeof callback !== 'function') {
+        [].push.call(arguments, callback);
+
+        var args = arguments;
+        var prom = new Promise(function(resolve, reject) {
+          callback = function(err, data) {
+            if (err) {
+              return reject(err);
+            }
+            else {
+              return resolve(data);
+            }
+          };
+
+          [].push.call(args, callback);
+          apiEndpoint.apply(this, args);  // recursively call self with callback added
+        });
+        return prom;
+      }
+
       var body = null;
       if (['PATCH', 'POST', 'PUT'].indexOf(endPoint.method) >= 0) {
         body = [].pop.call(arguments);
