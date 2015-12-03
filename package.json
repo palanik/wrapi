@@ -32,6 +32,7 @@
     "registry": "https://registry.npmjs.org"
   },
   "dependencies": {
+    "es6-promise": "^3.0.2",
     "extend": "^3.0.0",
     "request": "2.65.0",
     "urlpattern": "0.1.0"
