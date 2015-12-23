@@ -21,11 +21,11 @@ function wrapi(baseURL, endpoints, opts) {
 
   this.toString = function() {
     return JSON.stringify({
-      "baseURL": baseURL,
-      "endpoints": endpoints,
-      "opts": opts
+      'baseURL': baseURL,
+      'endpoints': endpoints,
+      'opts': opts
     });
-  }
+  };
 
   this.register = function(e, endPoint) {
     endpoints[e] = endPoint;
@@ -79,7 +79,8 @@ function wrapi(baseURL, endpoints, opts) {
 
                 if (apiOpts.catchHTTP4xx5xx && r.statusCode >= 400 && r.statusCode <= 599) {
                   callback(body, null, r);
-                } else {
+                }
+                else {
                   callback(null, body, r);  
                 }
                 
