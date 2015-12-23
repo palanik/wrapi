@@ -7,7 +7,12 @@ var url = require('url');
 var nest = require('./utils').nest;
 
 function wrapi(baseURL, endpoints, opts) {
-  opts = opts || {};
+  var defaultOpts = {
+    catchHTTP4xx5xx:false
+  };
+
+  opts = opts || defaultOpts;
+
   if (!opts.qs) {
     opts.qs = {};
   }
@@ -60,7 +65,13 @@ function wrapi(baseURL, endpoints, opts) {
                     // Not json
                   }
                 }
-                callback(null, body, r);
+
+                if (apiOpts.catchHTTP4xx5xx && r.statusCode >= 400 && r.statusCode <= 599) {
+                  callback(body, null, r);
+                } else {
+                  callback(null, body, r);  
+                }
+                
               }
             }
           );
