@@ -14,7 +14,18 @@ function wrapi(baseURL, endpoints, opts) {
 
   endpoints = endpoints || {};
 
-  this.register = defineEndpoint;
+  this.toString = function() {
+    return JSON.stringify({
+      "baseURL": baseURL,
+      "endpoints": endpoints,
+      "opts": opts
+    });
+  }
+
+  this.register = function(e, endPoint) {
+    endpoints[e] = endPoint;
+    return defineEndpoint(e, endPoint);
+  };
   
   var self = this;
 
