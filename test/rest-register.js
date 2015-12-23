@@ -2,6 +2,29 @@ var expect = require('chai').expect;
 var nock = require('nock');
 var wrapi = require('../index');
 
+var baseURL = 'http://api.a2zbooks.local/v1/';
+var endpoints = {
+  "list" : {
+    "method" : "GET",
+    "path": "books"
+  },
+  "item": {
+    "method" : "GET",
+    "path": "books/:id"
+  },
+  "create": {
+    "method" : "POST",
+    "path": "books"
+  },
+  "update": {
+    "method" : "PUT",
+    "path": "books/:id"
+  },
+  "remove": {
+    "method" : "DELETE",
+    "path": "books/:id"
+  }
+};
 
 describe("Restful register", function() {
   beforeEach(function() {
@@ -32,7 +55,7 @@ describe("Restful register", function() {
       .reply(200, {id:3, name: "The Time Machine"})
       ;
 
-    this.client = new wrapi('http://api.a2zbooks.local/v1/', 
+    this.client = new wrapi(baseURL, 
       {},
       {json: true}
     );
@@ -160,6 +183,14 @@ describe("Restful register", function() {
           "path": "books/register"
         });
       }).to.throw ( RangeError );
+      done();
+    });
+    
+    it("toString()", function(done) {
+      var str = this.client.toString();
+      var src = JSON.parse(str);
+      expect(src.baseURL).to.equal(baseURL);
+      expect(src.endpoints).to.deep.equal(endpoints);
       done();
     });
 
