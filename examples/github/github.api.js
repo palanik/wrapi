@@ -6,7 +6,8 @@ var wrapi = require('../../index.js');
 var opts = {
   headers: {
     'User-Agent': 'wrapi-github-client'
-  }
+  },
+  catchHTTP4xx5xx: true
 };
 
 var client = new wrapi('https://api.github.com/', 

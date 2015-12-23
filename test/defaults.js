@@ -2,7 +2,7 @@ var expect = require('chai').expect;
 var nock = require('nock');
 var wrapi = require('../index');
 
-describe("Default options", function() {
+describe("Default Minimal", function() {
   before(function() {
     nock('http://api.a2zbooks.local/v1')
       .get('/books')
