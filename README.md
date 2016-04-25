@@ -17,7 +17,7 @@ $ npm install wrapi --save
 ## Easy Start
 
 ### Approach `A`
-1. Create a [JSON file](#json-file) listing all the endpoints of the API you want to work with.
+1. Create a [JSON file](#json-file) listing all the API endpoints you want to work with.
 2. [Wrap](#wrap-endpoints) endpoints with **`wrapi`**.
 3. Call individual endpoints as [functions](#make-the-call).
 
