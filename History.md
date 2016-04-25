@@ -1,3 +1,8 @@
+0.1.6 / 2015-12-23
+==================
+
+  * Custom option - `catchHTTP4xx5xx` - Treat HTTP 4xx & 5xx as errors.
+
 0.1.5 / 2015-11-27
 ==================
 

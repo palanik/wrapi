@@ -11,13 +11,13 @@ Wrap Restful APIs as callable functions.
 ## Installation
 
 ```sh
-$ npm install wrapi
+$ npm install wrapi --save
 ```
 
 ## Easy Start
 
 ### Approach `A`
-1. Create a [JSON file](#json-file) listing all the endpoints of the API you want to work with.
+1. Create a [JSON file](#json-file) listing all the API endpoints you want to work with.
 2. [Wrap](#wrap-endpoints) endpoints with **`wrapi`**.
 3. Call individual endpoints as [functions](#make-the-call).
 
@@ -131,6 +131,9 @@ The constructor takes the following arguments:
 1. `baseURL` - The base url for the API. eg. `https://api.github.com/repos/nodejs/node/contributors`
 2. `endpoints` - The JSON object listing the endpoints of the API. Provide `{}` - empty object or a partial list and `register` endpoints later.
 3. `options` - Optional parameter. **`wrapi`** uses [request](https://www.npmjs.com/package/request) module to connect to API server. The `options` parameter is the same [`options`](https://www.npmjs.com/package/request#requestoptions-callback) parameter used in `request`.
+
+#### Custom options
+1. `catchHTTP4xx5xx` - Set this option to `true` to treat HTTP status 4xx & 5xx as errors. Default value is `false`. If set, the `err` argument in your callback function will contain the response body for 4xx & 5xx errors.
 
 ### Register function
 

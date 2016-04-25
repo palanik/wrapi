@@ -9,14 +9,30 @@ var nest = require('./utils').nest;
 var Promise = Promise || require('es6-promise').Promise;
 
 function wrapi(baseURL, endpoints, opts) {
-  opts = opts || {};
+  var defaultOpts = {
+    catchHTTP4xx5xx:false
+  };
+
+  opts = opts || defaultOpts;
+
   if (!opts.qs) {
     opts.qs = {};
   }
 
   endpoints = endpoints || {};
 
-  this.register = defineEndpoint;
+  this.toString = function() {
+    return JSON.stringify({
+      'baseURL': baseURL,
+      'endpoints': endpoints,
+      'opts': opts
+    });
+  };
+
+  this.register = function(e, endPoint) {
+    endpoints[e] = endPoint;
+    return defineEndpoint(e, endPoint);
+  };
   
   var self = this;
 
@@ -62,7 +78,14 @@ function wrapi(baseURL, endpoints, opts) {
                     // Not json
                   }
                 }
-                callback(null, body, r);
+
+                if (apiOpts.catchHTTP4xx5xx && r.statusCode >= 400 && r.statusCode <= 599) {
+                  callback(body, null, r);
+                }
+                else {
+                  callback(null, body, r);  
+                }
+                
               }
             }
           );
