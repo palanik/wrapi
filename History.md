@@ -1,7 +1,12 @@
+0.1.7 / 2016-05-01
+==================
+
+  * [#2](https://github.com/palanik/wrapi/issues/2) Query strings in endpoint definition.
+
 0.1.6 / 2015-12-23
 ==================
 
-  * Custom option - `catchHTTP4xx5xx` - Treat HTTP 4xx & 5xx as errors.
+  * [#1](https://github.com/palanik/wrapi/issues/1) Custom option - `catchHTTP4xx5xx` - Treat HTTP 4xx & 5xx as errors.
 
 0.1.5 / 2015-11-27
 ==================
