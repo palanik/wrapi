@@ -23,6 +23,13 @@ var endpoints = {
   "remove": {
     "method" : "DELETE",
     "path": "books/:id"
+  },
+  "byAuthor": {
+    "method" : "GET",
+    "path": "books/author",
+    "query": {
+      "type": "author"
+    }
   }
 };
 
@@ -53,6 +60,10 @@ describe("Restful register", function() {
       
       .delete('/books/3')
       .reply(200, {id:3, name: "The Time Machine"})
+      
+      .get('/books/author')
+      .query({type:'author', q:'Homer'})
+      .reply(200, [{id:2, name:"Odyssey", author:"Homer"}, {id:3, name:"Iliad", author:"Homer"}])
       ;
 
     this.client = new wrapi(baseURL, 
@@ -85,6 +96,23 @@ describe("Restful register", function() {
           "path": "books/:id"
         });
 
+    this.client.register("remove", {
+          "method" : "DELETE",
+          "path": "books/:id"
+        });
+
+    this.client.register("remove", {
+          "method" : "DELETE",
+          "path": "books/:id"
+        });
+
+    this.client.register("byAuthor", {
+          "method" : "GET",
+          "path": "books/author",
+          "query": {
+            "type": "author"
+          }
+        });
   });
 
   afterEach(function() {
@@ -147,6 +175,18 @@ describe("Restful register", function() {
         expect(data).to.deep.equal(
           {id:3, name: "The Time Machine"}
         );
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+    });
+
+    it("list by query", function(done) {
+      this.client.byAuthor({q:'Homer'}, function (err, data, res) {
+        expect(err).to.equal(null);
+        expect(data).to.deep.equal([
+          {id:2, name:"Odyssey", author:"Homer"},
+          {id:3, name:"Iliad", author:"Homer"}
+        ]);
         expect(res.statusCode).to.equal(200);
         done();
       });
