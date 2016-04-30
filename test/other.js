@@ -7,6 +7,9 @@ describe("Misc. test cases", function() {
   before(function() {
     nock('http://api.a2zbooks.local/v1')
 
+      .get('')
+      .reply(200, "Welcome!")
+
       .get('/hello')
       .query({echo: false})
       .reply(200, "Hi there!")
@@ -26,6 +29,10 @@ describe("Misc. test cases", function() {
 
     this.client = new wrapi('http://api.a2zbooks.local/v1/', 
       {
+        "welcome": {
+          "method": "GET",
+          "path": ""
+        },
         "hello": {
           "method": "GET",
           "path": "hello"
@@ -94,5 +101,62 @@ describe("Misc. test cases", function() {
       });
     });
 
+  });
+});
+
+describe("Empty Path", function() {
+  before(function() {
+    nock('http://api.a2zbooks.local/v1')
+
+      .get('/')
+      .reply(200, "Welcome!")
+
+      .get('/')
+      .query({echo: true})
+      .reply(200, "Hi there!")
+      ;
+
+    this.client = new wrapi('http://api.a2zbooks.local/v1/', 
+      {
+        "welcome": {
+          "method": "GET",
+          "path": ""
+        },
+        "hello": {
+          "method": "GET",
+          "path": "",
+          "query": {
+            echo: true
+          }
+        }
+      },
+      {
+        headers: {
+          'User-Agent': 'wrapi-test'
+        }
+      }
+    );
+  });
+
+  after(function() {
+     nock.cleanAll();
+  });
+
+  it("root", function(done) {
+    this.client.welcome(function(err, data, res) {
+      expect(err).to.equal(null);
+      expect(data).to.equal("Welcome!");
+      expect(res.statusCode).to.equal(200);
+      done();
+    });
+  });
+
+  it("root with query", function(done) {
+    this.client.hello(function(err, data, res) {
+      expect(err).to.equal(null);
+      expect(data).to.equal("Hi there!");
+      expect(res.statusCode).to.equal(200);
+      done();
+    });
   });
 });
