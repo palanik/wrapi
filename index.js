@@ -127,9 +127,9 @@ function wrapi(baseURL, endpoints, opts) {
       if (['PATCH', 'POST', 'PUT'].indexOf(endPoint.method) >= 0) {
         body = [].pop.call(arguments);
       }
-      var qs = {};
+      var qs = endPoint.query || {};
       if (arguments.length > 0 && typeof arguments[arguments.length - 1] === 'object') {
-        qs = [].pop.call(arguments);
+        qs = extend(qs, [].pop.call(arguments));
       }
 
       var args = arguments;

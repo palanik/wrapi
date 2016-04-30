@@ -146,3 +146,92 @@ describe("Query Strings Override", function() {
 
   });
 });
+
+describe("Single Endpoint - Resources vary by Query Strings", function() {
+  before(function() {
+    nock('http://api.a2zbooks.local/v1')
+
+      .get('/books')
+      .query({type:'author', q:'Homer'})
+      .reply(200, [{id:2, name:"Odyssey", author:"Homer"}, {id:3, name:"Iliad", author:"Homer"}])
+
+      .get('/books')
+      .query({type:'genre', q:'sci-fi'})
+      .reply(200, [{id:4, name:"The Time Machine", author:"H. G. Wells"}])
+
+      .get('/books')
+      .query({type:'medium', q:'kindle'})
+      .reply(200, [{id:2, name:"Odyssey", author:"Homer"}, {id:4, name:"The Time Machine", author:"H. G. Wells"}])
+      ;
+
+    this.client = new wrapi('http://api.a2zbooks.local/v1/',
+      {
+        "books.author" : {
+          "method" : "GET",
+          "path": "books",
+          "query": {
+            "type": "author"
+          }
+        },
+        "books.genre" : {
+          "method" : "GET",
+          "path": "books",
+          "query": {
+            "type": "genre"
+          }
+        },
+        "books.medium" : {
+          "method" : "GET",
+          "path": "books",
+          "query": {
+            "type": "medium"
+          }
+        }
+      },
+      {
+        json: true
+      }
+    );
+  });
+
+  after(function() {
+     nock.cleanAll();
+  });
+
+  describe("Books/Type", function() {
+    it("type:author", function(done) {
+      this.client.books.author({q:'Homer'}, function (err, data, res) {
+        expect(err).to.equal(null);
+        expect(data).to.deep.equal([
+          {id:2, name:"Odyssey", author:"Homer"},
+          {id:3, name:"Iliad", author:"Homer"}
+        ]);
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+    });
+
+    it("type:genre", function(done) {
+      this.client.books.genre({q:'sci-fi'},function (err, data, res) {
+        expect(err).to.equal(null);
+        expect(data).to.deep.equal([
+          {id:4, name:"The Time Machine", author:"H. G. Wells"}
+        ]);
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+    });
+
+    it("type:author Overridden to type:medium", function(done) {
+      this.client.books.author({type:'medium', q:'kindle'},function (err, data, res) {
+        expect(err).to.equal(null);
+        expect(data).to.deep.equal([
+          {id:2, name:"Odyssey", author:"Homer"}, 
+          {id:4, name:"The Time Machine", author:"H. G. Wells"}
+        ]);
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+    });
+  });
+});

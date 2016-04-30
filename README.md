@@ -17,7 +17,7 @@ $ npm install wrapi --save
 ## Easy Start
 
 ### Approach `A`
-1. Create a [JSON file](#json-file) listing all the API endpoints you want to work with.
+1. Create a [JSON file](#json-file) listing all API endpoints you want to work with.
 2. [Wrap](#wrap-endpoints) endpoints with **`wrapi`**.
 3. Call individual endpoints as [functions](#make-the-call).
 
@@ -122,6 +122,13 @@ client.zen(function(err, response) {
 
 **`wrapi`** is an open ended framework and is not restricted any one or a set of public APIs. All APIs providing HTTP interface to access the endpoints can be wrapped by **`wrapi`** so that you can quickly build your client application.
 
+### Endpoint definition
+
+* `method` - Any one of the HTTP [methods](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html)
+* `path` - route path to API Endpoint. Supports `express` style [path params](http://expressjs.com/en/4x/api.html#req.params)
+* `query` - an object consists of name-value pairs. This is optional. Useful where resources are identified via query string parameters
+
+
 ### Client object
 
 The **`wrapi`** object conveniently provides the client interface to the API. Create it by calling `new` **`wrapi()`**.
@@ -148,7 +155,7 @@ register(function_name, endpoint_definition)
 
 ### Function calls
 
-Call the API via the function in the client object.  Arguments to the function depend on the API declaration in the JSON. 
+Call API endpoints via the function in the client object.  Arguments to the function depend on the API declaration in the JSON. 
 
 Provide the arguments in the following order:
 
