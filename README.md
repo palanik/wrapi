@@ -1,6 +1,6 @@
 wrapi
 =====
-Wrap Restful APIs as callable functions.
+Wrap Restful API endpoints as callable functions.
 
 **`wrapi`** allows you to make calls to HTTP based APIs like ordinary JavaScript functions.
 
@@ -168,6 +168,15 @@ Provide the arguments in the following order:
 ## Examples
 
   In [examples](examples) folder.
+
+## Implementations
+
+* [Slack Web API](https://www.npmjs.com/package/slack-wrapi)
+* [Square Connect API](https://www.npmjs.com/package/square-wrapi)
+* [Medium](https://www.npmjs.com/package/medium-wrapi)
+* [Twitter REST APIs](https://www.npmjs.com/package/twitter-wrapi)
+* [GIPHY API](https://www.npmjs.com/package/giphy-wrapi)
+* [Riffsy's API](https://www.npmjs.com/package/riffsy)
 
 ## License
 
