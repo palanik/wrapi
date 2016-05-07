@@ -124,9 +124,12 @@ client.zen(function(err, response) {
 
 ### Endpoint definition
 
-* `method` - Any one of the HTTP [methods](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html)
+`method` & `path`/`url` are required.
+
+* `method` - Any one of the HTTP [methods](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) (default: `"GET"`)
 * `path` - route path to API Endpoint. Supports `express` style [path params](http://expressjs.com/en/4x/api.html#req.params)
 * `query` - an object consists of name-value pairs. This is optional. Useful where resources are identified via query string parameters
+* `url` - fully qualified uri string to override. Useful when api calls connect to a different endpoints
 
 
 ### Client object

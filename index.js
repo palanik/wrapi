@@ -36,10 +36,9 @@ function wrapi(baseURL, endpoints, opts) {
   
   var self = this;
 
-  function api(method, path, qs, callback, content) {
+  function api(method, apiUrl, qs, callback, content) {
     // request function for "DELETE" is .del - https://github.com/request/request#requestdel
     method = (method == 'DELETE') ? 'DEL' : method;
-    var apiUrl = url.resolve(baseURL, path);
 
     var apiOpts = extend(true, {}, opts);
     apiOpts.qs = extend(apiOpts.qs, qs);
@@ -132,23 +131,34 @@ function wrapi(baseURL, endpoints, opts) {
         qs = extend(qs, [].pop.call(arguments));
       }
 
+      var epBaseUrl = baseURL;
+      var route = endPoint.path;
+      // If url overriden for endpoint
+      if (endPoint.url) {
+        var urlObj = url.parse(endPoint.url);
+        route = urlObj.path;
+        urlObj.pathname = null;
+        epBaseUrl = url.format(urlObj);
+      }
+
       var args = arguments;
       // If path had place holders, arguments contain values
       var placeholders = [];
-      var regexp = pattern.parse(endPoint.path, placeholders);
+      var regexp = pattern.parse(route, placeholders);
       var values = {};
       placeholders.forEach(function(ph) {
         values[ph.name] = [].shift.call(args);
       });
       try {
-        var path = pattern.transform(endPoint.path, values);
+        var path = pattern.transform(route, values);
       }
       catch (e) {
         callback(e);
         return;
       }
 
-      api(endPoint.method, path, qs, callback, body);      
+      var apiUrl = url.resolve(epBaseUrl, path);
+      api(endPoint.method || 'GET', apiUrl, qs, callback, body);
     };
 
     nest(self, e, apiEndpoint);
