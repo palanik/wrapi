@@ -3,7 +3,7 @@ var nock = require('nock');
 var wrapi = require('../index');
 
 
-describe("Paths", function() {
+describe("urlOverride", function() {
   before(function() {
     nock('http://api.a2zbooks.local/v1')
 
@@ -15,9 +15,6 @@ describe("Paths", function() {
 
       .get('/relative/path/to/endpoint')
       .reply(200, "relative/path/to/endpoint")
-
-      .get('/')
-      .reply(200, "empty/path/to/endpoint")
 
       .get('/path/2/endpoint')
       .reply(200, "path/2/endpoint")
@@ -31,35 +28,31 @@ describe("Paths", function() {
       .reply(200, "path/4/endpoint")
      ;
 
-    this.client = new wrapi('http://api.a2zbooks.local/v1/', 
+    this.client = new wrapi('http://wrong.base.url/v1/', 
       {
         "simple": {
           "method": "GET",
-          "path": "simple"
+          "url": "http://api.a2zbooks.local/v1/simple"
         },
         "fullPath": {
           "method": "GET",
-          "path": "path/to/endpoint"
+          "url": "http://api.a2zbooks.local/v1/path/to/endpoint"
         },
         "relativePath": {
           "method": "GET",
-          "path": "../v1/relative/path/to/endpoint"
-        },
-        "emptyPath": {
-          "method": "GET",
-          "path": ""
+          "url": "http://api.a2zbooks.local/v1/../v1/relative/path/to/endpoint"
         },
         "pathParam": {
           "method": "GET",
-          "path": "path/:to/endpoint"
+          "url": "http://api.a2zbooks.local/v1/path/:to/endpoint"
         },
         "pathParamAndQuery": {
           "method": "GET",
-          "path": "path/:three/endpoint"
+          "url": "http://api.a2zbooks.local/v1/path/:three/endpoint"
         },
         "pathParamPlusQuery": {
           "method": "GET",
-          "path": "path/:four/endpoint",
+          "url": "http://api.a2zbooks.local/v1/path/:four/endpoint",
           "query": {
             "q": "bye"
           }
@@ -100,15 +93,6 @@ describe("Paths", function() {
       this.client.relativePath(function(err, data, res) {
         expect(err).to.equal(null);
         expect(data).to.equal("relative/path/to/endpoint");
-        expect(res.statusCode).to.equal(200);
-        done();
-      });
-    });
-
-    it("empty path", function(done) {
-      this.client.emptyPath(function(err, data, res) {
-        expect(err).to.equal(null);
-        expect(data).to.equal("empty/path/to/endpoint");
         expect(res.statusCode).to.equal(200);
         done();
       });

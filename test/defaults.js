@@ -38,7 +38,7 @@ describe("Default Minimal", function() {
         });
 
     this.client.register("item", {
-          "method" : "GET",
+//          "method" : "GET",
           "path": "books/:id"
         });
 
