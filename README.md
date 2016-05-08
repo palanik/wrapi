@@ -178,6 +178,7 @@ Provide the arguments in the following order:
 * [Square Connect API](https://www.npmjs.com/package/square-wrapi)
 * [Medium](https://www.npmjs.com/package/medium-wrapi)
 * [Twitter REST APIs](https://www.npmjs.com/package/twitter-wrapi)
+* [Instagram API](https://www.npmjs.com/package/@wrapi/instagram)
 * [GIPHY API](https://www.npmjs.com/package/giphy-wrapi)
 * [Riffsy's API](https://www.npmjs.com/package/riffsy)
 
