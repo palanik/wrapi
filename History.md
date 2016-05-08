@@ -1,3 +1,8 @@
+0.1.8 / 2016-05-08
+==================
+
+  * [#3](https://github.com/palanik/wrapi/issues/3) Override base url.
+
 0.1.7 / 2016-05-01
 ==================
 
