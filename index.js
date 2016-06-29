@@ -129,8 +129,8 @@ function wrapi(baseURL, endpoints, opts) {
       try {
         var path = pattern.transform(route, values);
       }
-      catch (e) {
-        callback(e);
+      catch (exp) {
+        callback(exp);
         return;
       }
 
