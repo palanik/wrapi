@@ -103,7 +103,7 @@ function wrapi(baseURL, endpoints, opts) {
       var callback = [].pop.call(arguments);
       // If no callback provided, return a Promise.
       if (typeof callback !== 'function') {
-        [].push.call(arguments, callback);
+        [].push.call(arguments, callback);  // put it back
 
         var args = arguments;
         var prom = new Promise(function(resolve, reject) {
