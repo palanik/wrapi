@@ -53,7 +53,7 @@ describe("Options Override", function() {
     });
   });
 
-  if (semver.gte(process.versions.node, '0.11.13')) {
+  if (semver.gte(process.versions.node, '0.11.13')) { // Buffer.equals
     it("buffer", function(done) {
       this.client.coverBuffer(function(err, data, res) {
         expect(err).to.equal(null);

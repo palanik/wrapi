@@ -24,8 +24,8 @@ $ npm install wrapi --save
 See [Sample Code](examples/github/sample1.js)
 
 ### Approach `B`
-1. Create [client object](#client-object) with API Base URL.
-2. [Register](#register) API endpoints.
+1. Create [client object](#client-object) with API's base URL.
+2. [Register](#register) all API endpoints.
 3. Call individual endpoints as [functions](#make-the-call).
 
 See [Sample Code](examples/github/sample2.js)
@@ -91,7 +91,7 @@ var client = new wrapi('https://api.github.com/',	// base url for the API
 Register additional API endpoints with the client object with a function name.
 
 ```js
-client.register('zen', 
+client.register('zen',
   {
     method : 'GET',
     path: 'zen'
@@ -128,7 +128,8 @@ client.zen(function(err, response) {
 
 * `method` - Any one of the HTTP [methods](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) (default: `"GET"`)
 * `path` - route path to API Endpoint. Supports `express` style [path params](http://expressjs.com/en/4x/api.html#req.params)
-* `query` - an object consists of name-value pairs. This is optional. Useful where resources are identified via query string parameters
+* `query` - an object consists of name-value pairs. This is _optional_. Useful where resources are identified via query string parameters
+* `options` - options to override or to add specific to the API endpoint. eg. `{encoding:null}` returns the response data as `Buffer`
 * `url` - fully qualified uri string to override. Useful when api calls connect to a different endpoints
 
 
@@ -158,7 +159,7 @@ register(function_name, endpoint_definition)
 
 ### Function calls
 
-Call API endpoints via the function in the client object.  Arguments to the function depend on the API declaration in the JSON. 
+Call API endpoints via the function in the client object.  Arguments to the function depend on the API declaration in the JSON.
 
 Provide the arguments in the following order:
 
