@@ -183,6 +183,7 @@ Provide the arguments in the following order:
 * [Genius API](https://www.npmjs.com/package/@wrapi/genius)
 * [GIPHY API](https://www.npmjs.com/package/giphy-wrapi)
 * [Riffsy's API](https://www.npmjs.com/package/riffsy)
+* [Pokémon API](https://www.npmjs.com/package/pokemon-wrapi)
 
 ## License
 

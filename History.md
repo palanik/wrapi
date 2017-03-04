@@ -1,3 +1,10 @@
+0.1.9 / 2017-03-04
+==================
+
+  * Handling binary data from API response.
+
+  e.g. [Google QR code generator]( https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=Hello%20wrapi).
+
 0.1.8 / 2016-05-08
 ==================
 

@@ -15,3 +15,4 @@ coverage/
 lib/
 *.sh
 *.log
+*.tgz
