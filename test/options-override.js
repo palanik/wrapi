@@ -2,6 +2,7 @@ var expect = require('chai').expect;
 var nock = require('nock');
 var wrapi = require('../index');
 var fs = require('fs');
+var semver = require('semver');
 
 describe("Options Override", function() {
   before(function() {
@@ -52,18 +53,19 @@ describe("Options Override", function() {
     });
   });
 
-  it("buffer", function(done) {
-    this.client.coverBuffer(function(err, data, res) {
-      expect(err).to.equal(null);
-      expect(res.statusCode).to.equal(200);
-      expect(Buffer.isBuffer(data)).to.be.true;
+  if (semver.gte(process.versions.node, '0.11.13')) {
+    it("buffer", function(done) {
+      this.client.coverBuffer(function(err, data, res) {
+        expect(err).to.equal(null);
+        expect(res.statusCode).to.equal(200);
+        expect(Buffer.isBuffer(data)).to.be.true;
 
-      var image = fs.readFileSync(__dirname + '/data/blank.png');
-      expect(image.equals(data)).to.be.true;
+        var image = fs.readFileSync(__dirname + '/data/blank.png');
+        expect(image.equals(data)).to.be.true;
 
-      done();
+        done();
+      });
     });
-  });
-
+  }
 
 });
