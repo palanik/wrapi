@@ -3,22 +3,30 @@ var nock = require('nock');
 var wrapi = require('../index');
 var fs = require('fs');
 
-
-describe("optsOverride", function() {
+describe("Options Override", function() {
   before(function() {
     nock('http://api.a2zbooks.local/v1')
       .replyContentLength()
-      .get('/cover')
+      .get('/cover-buffer')
+      .replyWithFile(200, __dirname + '/data/blank.png', {'Content-Type': 'image/png'})
+     ;
+    nock('http://api.a2zbooks.local/v1')
+      .replyContentLength()
+      .get('/cover-string')
       .replyWithFile(200, __dirname + '/data/blank.png', {'Content-Type': 'image/png'})
      ;
 
     this.client = new wrapi('http://api.a2zbooks.local/v1/',
       {
-        "cover": {
+        "coverString": {
           "method": "GET",
-          "path": "cover",
+          "path": "cover-string"
+        },
+        "coverBuffer": {
+          "method": "GET",
+          "path": "cover-buffer",
           "options": {
-            "encoding": null  // return data as buffer
+            "encoding": null  // Returns body as buffer
           }
         }
       },
@@ -35,15 +43,24 @@ describe("optsOverride", function() {
      nock.cleanAll();
   });
 
+  it("string", function(done) {
+    this.client.coverString(function(err, data, res) {
+      expect(err).to.equal(null);
+      expect(res.statusCode).to.equal(200);
+      expect(Buffer.isBuffer(data)).to.be.false;
+      done();
+    });
+  });
+
   it("buffer", function(done) {
-    this.client.cover(function(err, data, res) {
+    this.client.coverBuffer(function(err, data, res) {
       expect(err).to.equal(null);
       expect(res.statusCode).to.equal(200);
       expect(Buffer.isBuffer(data)).to.be.true;
 
       var image = fs.readFileSync(__dirname + '/data/blank.png');
       expect(image.equals(data)).to.be.true;
-      
+
       done();
     });
   });
