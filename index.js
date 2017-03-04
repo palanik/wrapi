@@ -31,14 +31,14 @@ function wrapi(baseURL, endpoints, opts) {
     endpoints[e] = endPoint;
     return defineEndpoint(e, endPoint);
   };
-  
+
   var self = this;
 
-  function api(method, apiUrl, qs, callback, content) {
+  function api(method, apiUrl, qs, epOpts, callback, content) {
     // request function for "DELETE" is .del - https://github.com/request/request#requestdel
     method = (method == 'DELETE') ? 'DEL' : method;
 
-    var apiOpts = extend(true, {}, opts);
+    var apiOpts = extend(true, {}, opts, epOpts);
     apiOpts.qs = extend(apiOpts.qs, qs);
     if (content) {
       apiOpts.body = content;
@@ -80,22 +80,22 @@ function wrapi(baseURL, endpoints, opts) {
                   callback(body, null, r);
                 }
                 else {
-                  callback(null, body, r);  
+                  callback(null, body, r);
                 }
-                
+
               }
             }
           );
   }
 
-  // 
+  //
   function defineEndpoint(e, endPoint) {
     e = e.split('.');
     if (e[0] === 'register') {
       throw new RangeError('"register" is a reserved function name for wrapi. Please use an alias (eg. "Register", "_register").');
     }
 
-    // arguments order - param1, param2, ..., querystring?, body?, callback 
+    // arguments order - param1, param2, ..., querystring?, body?, callback
     function apiEndpoint() {
 
       var callback = [].pop.call(arguments);
@@ -107,6 +107,9 @@ function wrapi(baseURL, endpoints, opts) {
       if (arguments.length > 0 && typeof arguments[arguments.length - 1] === 'object') {
         qs = extend(qs, [].pop.call(arguments));
       }
+
+      // If options overriden for endpoint
+      var epOpts = endPoint.options || {};
 
       var epBaseUrl = baseURL;
       var route = endPoint.path;
@@ -135,7 +138,7 @@ function wrapi(baseURL, endpoints, opts) {
       }
 
       var apiUrl = url.resolve(epBaseUrl, path);
-      api(endPoint.method || 'GET', apiUrl, qs, callback, body);
+      api(endPoint.method || 'GET', apiUrl, qs, epOpts, callback, body);
     };
 
     nest(self, e, apiEndpoint);
