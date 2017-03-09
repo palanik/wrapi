@@ -35,6 +35,9 @@ describe("Pipe Results", function() {
 
       .post('/cover', {back:true})
       .reply(200, fs.createReadStream(__dirname + '/data/blank.png'))
+
+      .get('/error/23')
+      .reply(200, fs.createReadStream(__dirname + '/data/blank.png'))
       ;
 
 
@@ -55,6 +58,10 @@ describe("Pipe Results", function() {
         "cover.front" : {
           "method" : "POST",
           "path": "cover"
+        },
+        "error" : {
+          "method" : "GET",
+          "path": "error/:id"
         }
       },
       {json: true}
@@ -122,4 +129,13 @@ describe("Pipe Results", function() {
     });
 
   });
+
+  describe("Exception while piping", function() {
+    it("Missing param", function(done) {
+      var resp = new WritableStream();
+      expect(this.client.error.bind(this.client, resp)).to.throw('Failed to substitute :id in pattern error/:id');
+      done();
+    });
+  });
+
 });

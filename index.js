@@ -139,7 +139,6 @@ function wrapi(baseURL, endpoints, opts) {
       catch (exp) {
         if (isStreamWritable(callback)) {
           throw exp;
-          return;
         }
         callback(exp);
         return;
