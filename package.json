@@ -1,6 +1,6 @@
 {
   "name": "wrapi",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Wrapper for calling Restful API",
   "homepage": "https://github.com/palanik",
   "main": "index.js",
@@ -36,8 +36,8 @@
   },
   "dependencies": {
     "extend": "^3.0.0",
-    "request": "2.80.0",
-    "urlpattern": "0.1.0"
+    "request": "^2.80.0",
+    "urlpattern": "^0.1.0"
   },
   "devDependencies": {
     "chai": "^3.4.1",
