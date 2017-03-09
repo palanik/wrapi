@@ -170,6 +170,8 @@ Provide the arguments in the following order:
   * To **POST** `multipart/form-data`, set this argument as `{"formData" : multipartContent }`
 4. `callback(err, data)` - a callback function for the results to be returned. The callback is called when the response is fetched or if there is an error. This callback function gets the results of the response.
 
+    To `pipe` the results, pass a [writable stream](https://nodejs.org/api/stream.html#stream_class_stream_writable) as the callback.
+
 ## Examples
 
   In [examples](examples) folder.
