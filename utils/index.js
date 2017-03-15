@@ -22,9 +22,7 @@ function isStream(stream) {
 
 function isStreamWritable(stream) {
 	return (isStream(stream)
-    && stream.writable !== false
-    && typeof stream._write === 'function'
-    && typeof stream._writableState === 'object');
+    && stream.writable !== false);
 };
 
 module.exports = {
