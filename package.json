@@ -1,6 +1,6 @@
 {
   "name": "wrapi",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Wrapper for calling Restful API",
   "homepage": "https://github.com/palanik",
   "main": "index.js",
