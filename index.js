@@ -82,7 +82,14 @@ function wrapi(baseURL, endpoints, opts) {
         }
 
         if (apiOpts.catchHTTP4xx5xx && r.statusCode >= 400 && r.statusCode <= 599) {
-          callback(body, null, r);
+          callback(
+            {
+              statusCode: r.statusCode,
+              body: body
+            },
+            null,
+            r
+          );
         }
         else {
           callback(null, body, r);
