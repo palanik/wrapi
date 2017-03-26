@@ -1,6 +1,7 @@
 var expect = require('chai').expect;
 var nock = require('nock');
 var wrapi = require('../index');
+var http = require('http');
 
 describe("Default options", function() {
   before(function() {
@@ -10,10 +11,10 @@ describe("Default options", function() {
         {id:1, name:"The Martian"},
         {id:2, name:"Odyssey"}
       ])
-      
+
       .get('/books/1')
       .reply(200, {id:1, name:"The Martian"})
-      
+
       .get('/books/2')
       .reply(404, {id:2, message:"Not found"})
 
@@ -71,7 +72,7 @@ describe("Default options", function() {
         done();
       });
     });
-    
+
   });
 });
 
@@ -84,13 +85,15 @@ describe("Custom catchHTTP4xx5xx", function() {
         {id:1, name:"The Martian"},
         {id:2, name:"Odyssey"}
       ])
-      
+
       .get('/books/1')
       .reply(200, {id:1, name:"The Martian"})
-      
+
       .get('/books/2')
       .reply(404, {id:2, message:"Not found"})
 
+      .get('/books/3')
+      .reply(404)
       ;
 
     this.client = new wrapi('http://api.a2zbooks.local/v1/',
@@ -142,12 +145,29 @@ describe("Custom catchHTTP4xx5xx", function() {
     it("invalid item", function(done) {
       this.client.item(2, function (err, data, res) {
         expect(err).to.deep.equal(
-          {id:2, message:"Not found"}
+          {
+            statusCode: 404,
+            body: {id:2, message:"Not found"}
+          }
         );
         expect(res.statusCode).to.equal(404);
         done();
       });
     });
-    
+
+    it("emtpy error response", function(done) {
+      this.client.item(3, function (err, data, res) {
+        expect(err).to.deep.equal(
+          {
+            statusCode: 404,
+            body: ''
+          }
+        );
+        expect(res.statusCode).to.equal(404);
+        done();
+      });
+    });
+
+
   });
 });
