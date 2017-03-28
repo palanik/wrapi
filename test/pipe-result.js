@@ -62,6 +62,10 @@ describe("Pipe Results", function() {
         "error" : {
           "method" : "GET",
           "path": "error/:id"
+        },
+        "excpt" : {
+          "method" : "GET",
+          "path": "excpt/:id"
         }
       },
       {json: true}
@@ -135,6 +139,14 @@ describe("Pipe Results", function() {
       var resp = new WritableStream();
       expect(this.client.error.bind(this.client, resp)).to.throw('Failed to substitute :id in pattern error/:id');
       done();
+    });
+
+    it("Stream exception", function(done) {
+      var resp = new WritableStream();
+      resp.on('error', function(err) {
+        done();
+      });
+      this.client.excpt(23, resp);
     });
   });
 

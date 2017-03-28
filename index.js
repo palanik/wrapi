@@ -64,7 +64,11 @@ function wrapi(baseURL, endpoints, opts) {
     var req = request[method.toLowerCase()].bind(request, apiUrl, apiOpts);
 
     if (isStreamWritable(callback)) {
-      return req().pipe(callback);
+      return req()
+      .on('error', function(err) {
+        callback.emit('error', err);
+      })
+      .pipe(callback);
     }
 
     return req(function(e, r, body) {
@@ -84,7 +88,14 @@ function wrapi(baseURL, endpoints, opts) {
         }
 
         if (apiOpts.catchHTTP4xx5xx && r.statusCode >= 400 && r.statusCode <= 599) {
-          callback(body, null, r);
+          callback(
+            {
+              statusCode: r.statusCode,
+              body: body
+            },
+            null,
+            r
+          );
         }
         else {
           callback(null, body, r);
