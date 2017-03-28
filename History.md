@@ -1,7 +1,12 @@
+0.1.10 / 2017-03-10
+===================
+
+  * [#5](https://github.com/palanik/wrapi/issues/5) Pipe results to stream.
+
 0.1.9 / 2017-03-04
 ==================
 
-  * Handling binary data from API response.
+  * [#4](https://github.com/palanik/wrapi/issues/4) Handling binary data from API response.
 
   e.g. [Google QR code generator]( https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=Hello%20wrapi).
 

@@ -5,6 +5,7 @@ var pattern = require('urlpattern').express;
 var extend = require('extend');
 var url = require('url');
 var nest = require('./utils').nest;
+var isStreamWritable = require('./utils').isStreamWritable;
 
 var Promise = Promise || require('es6-promise').Promise;
 
@@ -60,34 +61,37 @@ function wrapi(baseURL, endpoints, opts) {
       apiOpts.headers['User-Agent'] = 'wrapi-client';
     }
 
-    request[method.toLowerCase()](apiUrl,
-            apiOpts,
-            function(e, r, body) {
-              if (e) {
-                callback(e);
-              }
-              else {
-                // 'PATCH', 'POST', 'PUT' return json as body
-                if (typeof body == 'string') {
-                  try {
-                    var json = JSON.parse(body);
-                    body = json;
-                  }
-                  catch(e) {
-                    // Not json
-                  }
-                }
+    var req = request[method.toLowerCase()].bind(request, apiUrl, apiOpts);
 
-                if (apiOpts.catchHTTP4xx5xx && r.statusCode >= 400 && r.statusCode <= 599) {
-                  callback(body, null, r);
-                }
-                else {
-                  callback(null, body, r);
-                }
+    if (isStreamWritable(callback)) {
+      return req().pipe(callback);
+    }
 
-              }
-            }
-          );
+    return req(function(e, r, body) {
+      if (e) {
+        callback(e);
+      }
+      else {
+        // 'PATCH', 'POST', 'PUT' return json as body
+        if (typeof body == 'string') {
+          try {
+            var json = JSON.parse(body);
+            body = json;
+          }
+          catch(e) {
+            // Not json
+          }
+        }
+
+        if (apiOpts.catchHTTP4xx5xx && r.statusCode >= 400 && r.statusCode <= 599) {
+          callback(body, null, r);
+        }
+        else {
+          callback(null, body, r);
+        }
+
+      }
+    });
   }
 
   //
@@ -156,12 +160,15 @@ function wrapi(baseURL, endpoints, opts) {
         var path = pattern.transform(route, values);
       }
       catch (exp) {
+        if (isStreamWritable(callback)) {
+          throw exp;
+        }
         callback(exp);
         return;
       }
 
       var apiUrl = url.resolve(epBaseUrl, path);
-      api(endPoint.method || 'GET', apiUrl, qs, epOpts, callback, body);
+      return api(endPoint.method || 'GET', apiUrl, qs, epOpts, callback, body);
     };
 
     nest(self, e, apiEndpoint);

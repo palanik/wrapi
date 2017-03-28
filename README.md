@@ -7,6 +7,7 @@ Wrap Restful API endpoints as callable functions.
 [![NPM version](https://img.shields.io/npm/v/wrapi.svg?style=flat)](https://www.npmjs.org/package/wrapi)
 [![Build Status](https://img.shields.io/travis/palanik/wrapi.svg?style=flat)](https://travis-ci.org/palanik/wrapi)
 [![Coverage Status](https://coveralls.io/repos/palanik/wrapi/badge.svg?service=github)](https://coveralls.io/github/palanik/wrapi)
+[![Known Vulnerabilities](https://snyk.io/test/github/palanik/wrapi/badge.svg)](https://snyk.io/test/github/palanik/wrapi)
 
 ## Installation
 
@@ -168,6 +169,8 @@ Provide the arguments in the following order:
 3. `body` - JSON content for  `POST` or `PUT` methods. Skip this argument if not required.
   * To **POST** `multipart/form-data`, set this argument as `{"formData" : multipartContent }`
 4. `callback(err, data)` - a callback function for the results to be returned. The callback is called when the response is fetched or if there is an error. This callback function gets the results of the response.
+
+    To `pipe` the results, pass a [writable stream](https://nodejs.org/api/stream.html#stream_class_stream_writable) as the callback.
 
 ## Examples
 

@@ -14,6 +14,19 @@ function nest(root, pathArray, val) {
   tail[last] = val;
 }
 
+function isStream(stream) {
+	return (stream !== null
+      && typeof stream === 'object'
+      && typeof stream.pipe === 'function');
+};
+
+function isStreamWritable(stream) {
+	return (isStream(stream)
+    && stream.writable !== false);
+};
+
 module.exports = {
-  nest: nest
+  nest: nest,
+  isStream: isStream,
+  isStreamWritable: isStreamWritable
 };
