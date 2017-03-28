@@ -62,7 +62,11 @@ function wrapi(baseURL, endpoints, opts) {
     var req = request[method.toLowerCase()].bind(request, apiUrl, apiOpts);
 
     if (isStreamWritable(callback)) {
-      return req().pipe(callback);
+      return req()
+      .on('error', function(err) {
+        callback.emit('error', err);
+      })
+      .pipe(callback);
     }
 
     return req(function(e, r, body) {
