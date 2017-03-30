@@ -36,8 +36,10 @@ chartsAPI.qr(
     chl:'https://github.com/palanik/wrapi'
   },
   function(err, data) {
-    if (!err) {
-      process.stdout.write(data);
+    if (err) {
+      console.error(err);
+      return;
     }
+    process.stdout.write(data);
   }
 );
