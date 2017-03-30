@@ -117,7 +117,7 @@ function wrapi(baseURL, endpoints, opts) {
 
       var callback = [].pop.call(arguments);
       // If no callback provided, return a Promise.
-      if (typeof callback !== 'function') {
+      if (typeof callback !== 'function' && !isStreamWritable(callback)) {
         [].push.call(arguments, callback);  // put it back
 
         var args = arguments;
