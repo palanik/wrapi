@@ -32,20 +32,26 @@ var endpoints = {
 };
 
 var fixer = new wrapi('https://api.fixer.io/', endpoints, { json:true });
-fixer.latest.USD(function(err, data) {
-    if (err) {
-      console.error(err);
-      return;
-    }
+fixer.latest.USD()
+.then(
+  function (data) {
     console.log(data);
+  }
+)
+.catch(
+  function (err) {
+    console.error(err);
   }
 );
 
-fixer.latest({symbols:'USD,GBP'}, function(err, data) {
-    if (err) {
-      console.error(err);
-      return;
-    }
+fixer.latest({symbols:'USD,GBP'})
+.then(
+  function (data) {
     console.log(data);
+  }
+)
+.catch(
+  function (err) {
+    console.error(err);
   }
 );
