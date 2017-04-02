@@ -6,16 +6,19 @@ var wrapi = require('../index');
 describe("Parameters", function() {
   beforeEach(function() {
     nock('http://api.a2zbooks.local/v1')
-      
+
       .get('/books/byAuthor/Homer')
       .reply(200, [{id:2, name:"Odyssey", author:"Homer"}, {id:3, name:"Iliad", author:"Homer"}])
-      
+
       .get('/books/byAuthor/Homer/Iliad')
       .reply(200, {id:3, name:"Iliad", author:"Homer"})
 
+      .get('/books/getAuthors/Iliad,Odyssey')
+      .reply(200, [{id:2, name:"Odyssey", author:"Homer"}, {id:3, name:"Iliad", author:"Homer"}])
+
       ;
 
-    this.client = new wrapi('http://api.a2zbooks.local/v1/', 
+    this.client = new wrapi('http://api.a2zbooks.local/v1/',
       {
         "byAuthor" : {
           "method" : "GET",
@@ -24,6 +27,10 @@ describe("Parameters", function() {
         "byAuthorTitle" : {
           "method" : "GET",
           "path": "books/byAuthor/:author/:title"
+        },
+        "getAuthors" : {
+          "method" : "GET",
+          "path": "books/getAuthors/:titles"
         }
       },
       {json: true}
@@ -66,6 +73,18 @@ describe("Parameters", function() {
           id:3,
           name:"Iliad", author:"Homer"
         });
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+    });
+
+    it("getAuthors - csv params", function(done) {
+      this.client.getAuthors(['Iliad', 'Odyssey'], function (err, data, res) {
+        expect(err).to.equal(null);
+        expect(data).to.deep.equal([
+          {id:2, name:"Odyssey", author:"Homer"},
+          {id:3, name:"Iliad", author:"Homer"}
+        ]);
         expect(res.statusCode).to.equal(200);
         done();
       });
