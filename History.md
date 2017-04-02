@@ -1,3 +1,15 @@
+0.1.12 / 2017-04-02
+===================
+
+  * [#8](https://github.com/palanik/wrapi/issues/8) Provide array to named params as csv values.
+  * [#7](https://github.com/palanik/wrapi/issues/7) emiting `error` on streaming exception.
+  * [#6](https://github.com/palanik/wrapi/issues/6) `catchHTTP4xx5xx` error includes http status code.
+
+0.1.11 / 2017-03-15
+===================
+
+  * `http.ServerResponse` is now treated as `OutputStream`.
+
 0.1.10 / 2017-03-10
 ===================
 
