@@ -137,12 +137,15 @@ function wrapi(baseURL, endpoints, opts) {
         return prom;
       }
 
+      // Last arg is body for 'PATCH', 'POST' & 'PUT'
       var body = null;
       if (['PATCH', 'POST', 'PUT'].indexOf(endPoint.method) >= 0) {
         body = [].pop.call(arguments);
       }
+
+      // Next is query string
       var qs = endPoint.query || {};
-      if (arguments.length > 0 && typeof arguments[arguments.length - 1] === 'object') {
+      if (arguments.length > 0 && !Array.isArray(arguments[arguments.length - 1]) && typeof arguments[arguments.length - 1] === 'object') {
         qs = extend(qs, [].pop.call(arguments));
       }
 
