@@ -16,3 +16,4 @@ lib/
 *.sh
 *.log
 *.tgz
+package-lock.json
