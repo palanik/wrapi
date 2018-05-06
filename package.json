@@ -35,18 +35,18 @@
     "registry": "https://registry.npmjs.org"
   },
   "dependencies": {
-    "es6-promise": "^4.0.5",
-    "extend": "^3.0.0",
-    "request": "^2.81.0",
+    "es6-promise": "^4.2.4",
+    "extend": "^3.0.1",
+    "request": "^2.83.0",
     "urlpattern": "^0.1.0"
   },
   "devDependencies": {
-    "chai": "^3.4.1",
-    "coveralls": "^2.11.4",
-    "istanbul": "^0.4.0",
-    "mocha": "^2.3.3",
-    "nock": "^3.1.1",
-    "semver": "^5.3.0"
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^4.1.0",
+    "nock": "^9.1.5",
+    "semver": "^5.4.1"
   },
   "engines": {
     "node": ">= 0.10.0"

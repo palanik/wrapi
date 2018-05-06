@@ -6,3 +6,4 @@ coverage
 *.sh
 .coveralls.yml
 *.tgz
+package-lock.json
