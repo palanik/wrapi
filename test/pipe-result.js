@@ -12,7 +12,7 @@ function WritableStream(options) {
     return new WritableStream(options);
   }
   Writable.call(this, options);
-  this.buffer = new Buffer(0);;
+  this.buffer = (Buffer.alloc) ? Buffer.alloc(0) : new Buffer(0);
 }
 util.inherits(WritableStream, Writable);
 

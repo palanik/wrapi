@@ -10,10 +10,10 @@ describe("Default Minimal", function() {
         {id:1, name:"The Martian"},
         {id:2, name:"Odyssey"}
       ])
-      
+
       .get('/books/1')
       .reply(200, {id:1, name:"The Martian"})
-      
+
       .get('/books/2')
       .reply(200, {id:2, name:"Odyssey"})
 
@@ -21,12 +21,12 @@ describe("Default Minimal", function() {
         name: "The Metamorphosis"
       })
       .reply(200, {id:3})
-      
+
       .put('/books/3', {
         name: "The Time Machine"
       })
       .reply(200, {id:3, name: "The Time Machine"})
-      
+
       .delete('/books/3')
       .reply(200, {id:3, name: "The Time Machine"})
       ;
@@ -72,6 +72,6 @@ describe("Default Minimal", function() {
         done();
       });
     });
-    
+
   });
 });
