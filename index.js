@@ -7,7 +7,7 @@ var url = require('url');
 var nest = require('./utils').nest;
 var isStreamWritable = require('./utils').isStreamWritable;
 
-var Promise = Promise || require('es6-promise').Promise;
+var Promise = (typeof global.Promise !== 'undefined') ? global.Promise : require('es6-promise').Promise;
 
 function wrapi(baseURL, endpoints, opts) {
   var defaultOpts = {
