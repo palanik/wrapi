@@ -27,6 +27,20 @@ describe("Nested JSON", function() {
       
       .delete('/books/3')
       .reply(200, {id:3, name: "The Time Machine"})
+
+      .get('/movies')
+      .reply(200, [
+        {id:101, name:"Tenet"},
+        {id:102, name:"No Time To Die"}
+      ])
+
+      .get('/movies/101')
+      .reply(200, {id:101, name:"Tenet"})
+
+      .post('/movies', {
+        name: "Coming 2 America"
+      })
+      .reply(200, {id:103})
       ;
 
     this.client = new wrapi('http://api.a2zbooks.local/v1/', 
@@ -50,6 +64,19 @@ describe("Nested JSON", function() {
         "books.item.remove": {
           "method" : "DELETE",
           "path": "books/:id"
+        },
+        // reverse order
+        "movies.item.create": {
+          "method" : "POST",
+          "path": "movies"
+        },
+        "movies.item": {
+          "method" : "GET",
+          "path": "movies/:id"
+        },
+        "movies" : {
+          "method" : "GET",
+          "path": "movies"
         }
       },
       {json: true}
@@ -129,6 +156,44 @@ describe("Nested JSON", function() {
       }).to.throw ( TypeError );
       done();
     });
+
+    // reverse order endpoints
+    it("list - movies", function(done) {
+      this.client.movies(function (err, data, res) {
+        expect(err).to.equal(null);
+        expect(data).to.deep.equal([
+          {id:101, name:"Tenet"},
+          {id:102, name:"No Time To Die"}
+        ]);
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+    });
+
+
+    it("item - movies", function(done) {
+      this.client.movies.item(101, function (err, data, res) {
+        expect(err).to.equal(null);
+        expect(data).to.deep.equal(
+          {id:101, name:"Tenet"}
+        );
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+    });
+
+
+    it("create - movies", function(done) {
+      this.client.movies.item.create({name: "Coming 2 America"},function (err, data, res) {
+        expect(err).to.equal(null);
+        expect(data).to.deep.equal(
+          {id:103}
+        );
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+    });
+
 
   });
 });
