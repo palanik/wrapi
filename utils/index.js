@@ -11,6 +11,16 @@ function nest(root, pathArray, val) {
     root
   );
 
+  // This path (or partial) was used earlier?
+  if (typeof tail[last] === 'object') {
+    var descendant = tail[last];
+    tail[last] = val;
+    Object.keys(descendant).forEach((k) => {
+      tail[last][k] = descendant[k];
+    });
+    return;
+  }
+
   tail[last] = val;
 }
 
